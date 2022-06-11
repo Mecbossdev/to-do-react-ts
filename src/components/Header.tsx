@@ -9,7 +9,7 @@ const Header = (props: Props) => {
   return (
     <div>
       <header className={styles.header}>
-        <h1>React + TS Todo</h1>
+        <h1>React + TS To-do</h1>
       </header>
     </div>
   )

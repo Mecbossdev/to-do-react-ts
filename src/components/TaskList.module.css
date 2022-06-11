@@ -11,6 +11,10 @@
   text-align: left;
 }
 
+.details h5 {
+  font-weight: bold;
+}
+
 .details h4 {
   font-size: 1.2rem;
   margin-bottom: 1em;

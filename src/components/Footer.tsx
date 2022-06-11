@@ -10,7 +10,7 @@ const Footer = (props: Props) => {
     <div>
       <footer className={styles.footer}>
         <p>
-          <span>React + TS Todo</span> @2022
+          <span>React + TS To-do</span> @2022
         </p>
       </footer>
     </div>

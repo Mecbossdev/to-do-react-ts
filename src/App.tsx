@@ -16,6 +16,7 @@ import { ITasks } from './interfaces/Tasks';
 function App() {
 
   const [taskList, setTaskList] = useState<ITasks[]>([]);
+  const [taskToUpdate, setTaskToUpdate] = useState<ITasks | null>(null);
 
   const deleteTask = (id: number) => {
     setTaskList(
@@ -29,15 +30,39 @@ function App() {
     const modal = document.getElementById("modal");
 
     if (display) {
+      modal!.classList.remove("hide");
+    } else {
       modal!.classList.add("hide");
-    } else{
-      
     }
+  }
+
+  const editTask = (task: ITasks): void => {
+    hideOrShowModal(true);
+    setTaskToUpdate(task);
+  }
+
+  const updateTask = (id: number, title: string, description: string) => {
+
+
+    const updatedTask: ITasks = {id, title, description}
+    const updateItems = taskList.map((task) => {
+      return task.id === updatedTask.id ? updatedTask : task
+    })
+
+    setTaskList(updateItems);
   }
 
   return (
     <div>
-      <Modal children={<TaskForm btnText="Editar Tarefa" taskList={taskList} />} />
+      <Modal
+        children=
+        {<TaskForm
+          btnText="Editar Tarefa"
+          taskList={taskList}
+          task={taskToUpdate}
+          handleUpdate={updateTask}
+        />} 
+      />
       <Header />
       <main className={styles.main}>
         <div>
@@ -53,6 +78,7 @@ function App() {
           <TaskList
             taskList={taskList}
             handleDelete={deleteTask}
+            handleEdit={editTask}
           />
         </div>
       </main>

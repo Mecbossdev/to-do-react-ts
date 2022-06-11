@@ -1,4 +1,4 @@
-import React, {useState, ChangeEvent, FormEvent, useEffect} from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 
 //CSS
 import styles from './TaskForm.module.css';
@@ -10,36 +10,51 @@ interface Props {
   btnText: string;
   taskList: ITasks[];
   setTaskList?: React.Dispatch<React.SetStateAction<ITasks[]>>
+  task?: ITasks | null;
+  handleUpdate?(id: number, title: string, description: string): void;
 }
 
-const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
+const TaskForm = ({ btnText, taskList, setTaskList, task, handleUpdate}: Props) => {
 
   const [id, setId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
-  const [difficulty, setDifficulty] = useState<number>(0);
+  const [description, setDescription] = useState<string>("");
+
+  useEffect(() => {
+
+    if (task) {
+      setId(task.id);
+      setTitle(task.title);
+      setDescription(task.description);
+    }
+  }, [task])
 
   const addTaskHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const id = Math.floor(Math.random() * 1000);
+    if(handleUpdate) {
+      handleUpdate(id, title, description);
+    } else {
+      const id = Math.floor(Math.random() * 1000);
 
-    const newTasks: ITasks = { id, title, difficulty };
+      const newTasks: ITasks = { id, title, description };
 
-    setTaskList!([...taskList, newTasks]);
+      setTaskList!([...taskList, newTasks]);
 
-    setTitle("");;
-    setDifficulty(0);
-
-    console.log(taskList);
+      setTitle("");;
+      setDescription("");
+    }
   }
 
+
+
   const handleChanger = (e: ChangeEvent<HTMLInputElement>) => {
-    if(e.target.name === "title"){
+    if (e.target.name === "title") {
       setTitle(e.target.value);
-    }else{
-      setDifficulty(parseInt(e.target.value));
+    } else {
+      setDescription(e.target.value);
     }
-    
+
   }
 
   return (
@@ -55,13 +70,13 @@ const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
         />
       </div>
       <div className={styles.input_container}>
-        <label htmlFor="dificulty">Dificuldade:</label>
+        <label htmlFor="dificulty">Descrição:</label>
         <input
           type="text"
           name="dificulty"
           placeholder="Dificuldade da tarefa"
           onChange={handleChanger}
-          value={difficulty}
+          value={description}
         />
       </div>
       <input type="submit" value={btnText} />

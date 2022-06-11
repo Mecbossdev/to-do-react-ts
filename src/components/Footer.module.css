@@ -3,8 +3,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #282c34;
+    background-color: #6CAEF0;
     color: #fff;
+    box-shadow: rgb(0 52 130 / 20%) 2px 2px 2px 2px;
 }
 
 .footer span {
