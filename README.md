@@ -7,4 +7,5 @@ Criar um programa com o codigo todo em typescript a aplicação tem funcionalida
 
 
 ### App Preview:
-![preview](https://github.com/Mecbossdev/Landingpages/blob/main/assets/projeto React-TS.gif)
+### App Preview:
+![preview](https://github.com/Mecbossdev/to-do-react-ts/blob/main/assets/img/projeto React-TS.gif)
